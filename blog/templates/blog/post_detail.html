@@ -1,0 +1,134 @@
+{% extends 'blog/base.html' %}
+{% load post_time %}
+{% load static %}
+{% block content %}
+
+<h1 class="posttitle">{{ post.title }}</h1>
+<div class="center">
+
+{% if post.publish_date %}
+
+    <div class="d-inline-block px-2">
+      By {{ post.author }}
+    </div>
+    |
+    <div class="d-inline-block px-2">
+      {{ post.publish_date|post_time:"d M Y" }}
+    </div>
+    |
+    <div class="d-inline-block px-2">
+      <a href="https://github.com/cedarfall">
+      <svg class="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="25" height="25">
+        <path fill="black" fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+    </a>
+    </div>
+
+{% else %}
+
+  <p>Created {{ post.create_date|post_time:"d M Y" }}</p>
+  <a class="btn btn-warning" href="{% url 'post_publish' pk=post.pk %}">Publish</a>
+
+{% endif %}
+
+</div>
+
+<div class="row justify-content-center mb-4">
+  <div class="col-12 col-lg-10 ">
+    <div class="card">
+      <img src="{{ post.banner_image_url }}" class="card-img-top" alt="Post Title Image">
+      <div class="card-body">
+        <div class="card-text">
+          {{ post.text|safe|linebreaksbr }}
+        </div>
+
+      <div class="clearfix mt-4">
+
+        {% if user.is_authenticated %}
+
+          <a title="Edit" class="btn btn-primary float-left my-2" href="{% url 'post_edit' pk=post.pk %}">
+            <svg class="bi bi-pencil" width="1.25em" height="1.25em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M11.293 1.293a1 1 0 011.414 0l2 2a1 1 0 010 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z" clip-rule="evenodd"/>
+              <path fill-rule="evenodd" d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 00.5.5H4v.5a.5.5 0 00.5.5H5v.5a.5.5 0 00.5.5H6v-1.5a.5.5 0 00-.5-.5H5v-.5a.5.5 0 00-.5-.5H3z" clip-rule="evenodd"/>
+            </svg>
+          </a>
+
+          <a title="Remove" class="btn btn-danger float-left ml-2 my-2" href="{% url 'post_remove' pk=post.pk %}">
+            <svg class="bi bi-x" width="1.25em" height="1.25em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z" clip-rule="evenodd"/>
+              <path fill-rule="evenodd" d="M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z" clip-rule="evenodd"/>
+            </svg>
+          </a>
+
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+
+
+    <h1 class="postcomment">Comments</h1>
+
+    <div class="center">
+      <a class="btn btn-primary  my-2" href="{% url 'add_comment_to_post' pk=post.pk %}">Add Comment</a>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <div class="card-text">
+
+          {% for comment in post.comments.all|dictsortreversed:"create_date" %}
+
+            {% if user.is_authenticated or comment.approved_comment %}
+
+              {% if not comment.approved_comment %}
+
+                <div class="clearfix mt-4">
+
+                <a title="Approve" class="btn btn-primary float-left my-2" href="{% url 'comment_approve' pk=comment.pk %}">
+                  <svg class="bi bi-check" width="1.25em" height="1.25em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M13.854 3.646a.5.5 0 010 .708l-7 7a.5.5 0 01-.708 0l-3.5-3.5a.5.5 0 11.708-.708L6.5 10.293l6.646-6.647a.5.5 0 01.708 0z" clip-rule="evenodd"/>
+                  </svg>
+                </a>
+
+                <a title="Remove" class="btn btn-danger float-left ml-2 my-2" href="{% url 'comment_remove' pk=comment.pk %}">
+                  <svg class="bi bi-x" width="1.25em" height="1.25em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z" clip-rule="evenodd"/>
+                  <path fill-rule="evenodd" d="M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z" clip-rule="evenodd"/>
+                  </svg>
+                </a>
+
+                </div>
+
+              {% endif %}
+
+              <div class="mt-4 clearfix">
+
+              <p>{{ comment.text }}</p>
+              <p class="float-left"><small>By {{ comment.author }}</small></p>
+              <p class="float-right"><small class="text-muted">{{ comment.create_date|post_time:"d M Y" }}</small></p>
+
+              </div>
+
+              <hr>
+
+            {% endif %}
+
+          {% empty %}
+
+              <div class="mt-4 ml-0 center">
+              <p>No comments</p>
+              </div>
+
+          {% endfor %}
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<hr>
+
+<script src="{% static 'js/blog.js' %}"></script>
+{% endblock %}

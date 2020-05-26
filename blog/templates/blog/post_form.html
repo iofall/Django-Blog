@@ -1,0 +1,43 @@
+{% extends 'blog/base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block content %}
+
+<div class="center">
+  <h1>New Post</h1>
+</div>
+
+
+<div class="invalid-feedback d-block">{{ form.non_field_errors }}</div>
+<form class="post-form" method="post">
+  {% csrf_token %}
+
+  {% for field in form %}
+
+  <div class="form-group mb-4">
+    {% if field.errors %}
+    <label for="{{ field.id_for_label }}">{{ field.label }}</label>{{ my_field }}
+    {{ field|add_class:"is-invalid" }}
+    <div class="invalid-feedback">{{ field.errors }}</div>
+    {% else %}
+    <label for="{{ field.id_for_label }}">{{ field.label }}</label>{{ my_field }}
+    {{ field }}
+    <small class="form-text text-muted">{{ field.help_text }}</small>
+    {% endif %}
+  </div>
+
+  {% endfor %}
+
+  <button type="submit" class="btn btn-primary mb-4">Save</button>
+</form>
+
+<script>
+  var editor = new MediumEditor('.editable', {
+    placeholder: {text: "Enter Your Blog Post"},
+    toolbar: {buttons: ['bold', 'italic', 'underline', 'anchor', 'h2', 'h3', 'image', 'html', 'justifyLeft', 'justifyCenter', 'justifyRight']}
+  });
+</script>
+
+<script src="{% static 'js/blog.js' %}"></script>
+
+{% endblock %}

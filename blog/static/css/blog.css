@@ -1,0 +1,141 @@
+body{
+  font-family: 'Lora', serif;
+  font-size: 1.10em;
+}
+
+.bg-red{
+  background-color: #441122;
+}
+
+/* Alignment */
+
+.center{
+  text-align: center;
+}
+
+.center_stage{
+  margin:auto;
+}
+
+/* Images */
+
+.img-fluid{
+  max-height: 600px;
+  padding: 5px;
+}
+
+/* Links */
+
+a{
+  color: black;
+  text-decoration: none;
+}
+
+a:hover{
+  color: black;
+  text-decoration: none;
+}
+
+.card-text a{
+  text-decoration: underline;
+  text-decoration-color: #12b8e6;
+}
+
+.card-text a:hover{
+  color: #12b8e6;
+  text-decoration: underline;
+  text-decoration-color: #12b8e6;
+}
+
+.card-text a.btn:hover{
+  color: white;
+}
+
+/* Post */
+
+.card{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+
+.card:hover{
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.card-img-top{
+  max-width: 100%;
+  max-height: 650px;
+}
+
+.card-img-top-detail{
+  max-width: 100%;
+  display: block;
+  margin: auto
+}
+
+.btn-comment{
+  text-align: right;
+}
+
+.postdate{
+  text-align: center;
+}
+
+.comment{
+  text-align: right;
+}
+
+.posttitle{
+    font-size: 3.5em;
+    text-align: center;
+}
+
+.postcomment{
+  font-size: 2.0em;
+  text-align: center;
+}
+
+.postcontent{
+  font-size: 1.5em;
+  min-height: 400px;
+}
+
+/* Medium Editor */
+
+.medium-editor-placeholder::after {
+    font-style: normal;
+}
+
+.editable{
+  height: auto;
+}
+
+/* Medium Editor Links */
+
+.editable a{
+  text-decoration: underline;
+  text-decoration-color: #12b8e6;
+}
+
+ .editable a:hover{
+  color: #12b8e6;
+  text-decoration: underline;
+  text-decoration-color: #12b8e6;
+}
+
+.medium-editor-toolbar-anchor-preview a {
+  color: #12b8e6;
+}
+
+/* Errors */
+
+ul.errorlist{
+  list-style-type: none;
+  padding-left: 4px;
+}
+
+ul.nonfield{
+  padding-left: 0px;
+}

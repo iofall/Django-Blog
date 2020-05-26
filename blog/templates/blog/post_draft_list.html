@@ -1,0 +1,30 @@
+{% extends 'blog/base.html' %}
+{% load post_time %}
+{% block content %}
+  <div class="center_stage">
+    {% for post in post_list %}
+      <div class="row justify-content-center mb-4">
+        <div class="col-12 col-lg-9 ">
+          <div class="card">
+
+            <a href="{% url 'post_detail' pk=post.pk %}">
+
+              <img src="{{ post.banner_image_url }}" class="card-img-top" alt="Post Title Image">
+
+              <div class="card-body">
+                <h1 class="card-title center">{{ post.title }}</h1>
+                <p class="card-text">{{ post.text|truncatechars_html:200|striptags }}</p>
+
+                <div class="clearfix">
+                  <p class="card-text float-right mb-0"><small class="text-muted">{{ post.create_date|post_time:"d M Y" }}</small></p>
+                  <p class="card-text float-left mb-0"><small>By {{ post.author }}</small></p>
+                </div>
+              </div>
+
+            </a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
