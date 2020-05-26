@@ -31,7 +31,6 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'cedarfall-blog.herokuapp.com']
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -40,6 +39,9 @@ INSTALLED_APPS = [
     'blog',
     'widget_tweaks',
 ]
+
+if DEBUG:
+    INSTALLED_APPS = ['django.contrib.admin'] + INSTALLED_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
