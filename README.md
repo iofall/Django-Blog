@@ -122,7 +122,7 @@ Custom template filter used to filter time based on current time. This mimics th
 
 ### Further Work
 
-To address these limitations, we could make use of `Document.js` which produces clean JSON data. We must also remove the `HTML` option for styling and instead provide some abstraction for complicated styling to ensure better use and security.
+To address these limitations, we could make use of `Editor.js` which produces clean JSON data. We must also remove the `HTML` option for styling and instead provide some abstraction for complicated styling to ensure better use and security.
 
 ### Acknowledgements
 
